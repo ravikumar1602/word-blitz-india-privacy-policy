@@ -1,0 +1,35 @@
+# Word Blitz India — GitHub Pages Setup
+# Privacy Policy URL milega: https://TUMHARA_USERNAME.github.io/word-blitz-india/privacy_policy.html
+
+## STEP 1 — GitHub pe new repository banao
+1. github.com/new
+2. Repository name: word-blitz-india
+3. Public rakho (zaroori hai GitHub Pages ke liye)
+4. Create repository
+
+## STEP 2 — Files upload karo
+Option A — GitHub website se (easy):
+1. Repository open karo
+2. "Add file" → "Upload files"
+3. index.html aur privacy_policy.html dono upload karo
+4. Commit changes
+
+Option B — Git se:
+git init
+git add .
+git commit -m "Add privacy policy"
+git remote add origin https://github.com/USERNAME/word-blitz-india.git
+git push -u origin main
+
+## STEP 3 — GitHub Pages enable karo
+1. Repository → Settings
+2. Left sidebar → Pages
+3. Source: "Deploy from a branch"
+4. Branch: main → / (root)
+5. Save
+
+## STEP 4 — URL milega (2-3 min mein live)
+https://USERNAME.github.io/word-blitz-india/privacy_policy.html
+
+## STEP 5 — Play Store mein add karo
+Play Console → App Content → Privacy Policy → URL paste karo
