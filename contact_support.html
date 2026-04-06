@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact & Support — Word Blitz India</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0A0F2C;
+    color: #e0e0e0;
+    line-height: 1.8;
+    font-size: 16px;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #FF6B00, #FFD700);
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 6px;
+  }
+  .header p {
+    color: rgba(255,255,255,0.85);
+    font-size: 14px;
+  }
+  .flag {
+    display: inline-flex;
+    margin-top: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .flag span { width: 28px; height: 5px; display: block; }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .contact-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+  }
+  .contact-card:hover {
+    background: rgba(255, 107, 0, 0.08);
+    border-color: rgba(255, 107, 0, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .contact-icon {
+    font-size: 32px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .contact-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFD700;
+    margin-bottom: 12px;
+  }
+
+  .contact-card p {
+    color: #c8c8c8;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .contact-card a {
+    color: #FF9A3C;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .contact-card a:hover {
+    color: #FFD700;
+  }
+
+  .faq-section {
+    margin-top: 48px;
+  }
+
+  .faq-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .faq-question {
+    padding: 20px 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: #FFD700;
+    transition: background 0.2s;
+  }
+  .faq-question:hover {
+    background: rgba(255, 107, 0, 0.05);
+  }
+
+  .faq-answer {
+    padding: 0 24px 20px;
+    color: #c8c8c8;
+    font-size: 14px;
+    line-height: 1.6;
+    display: none;
+  }
+  .faq-item.active .faq-answer {
+    display: block;
+  }
+  .faq-item.active .faq-toggle {
+    transform: rotate(180deg);
+  }
+
+  .faq-toggle {
+    transition: transform 0.3s;
+    font-size: 18px;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(255, 107, 0, 0.1), rgba(255, 215, 0, 0.05));
+    border: 1px solid rgba(255, 107, 0, 0.3);
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    margin: 40px 0;
+  }
+
+  .highlight-box h2 {
+    font-size: 24px;
+    color: #FFD700;
+    margin-bottom: 16px;
+  }
+
+  .highlight-box p {
+    color: #e0e0e0;
+    margin-bottom: 24px;
+  }
+
+  .response-time {
+    background: rgba(255, 215, 0, 0.1);
+    border-left: 4px solid #FFD700;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 24px 0;
+    font-size: 14px;
+    color: #d0d0d0;
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .social-link {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 20px;
+    transition: all 0.3s;
+  }
+  .social-link:hover {
+    background: linear-gradient(135deg, #FF6B00, #FFD700);
+    border-color: transparent;
+    transform: translateY(-2px);
+  }
+
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .language-switcher {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    padding: 4px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+  }
+  .lang-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+  .lang-btn.active {
+    background: linear-gradient(135deg, #FF6B00, #FFD700);
+    color: white;
+  }
+  .lang-btn:hover:not(.active) {
+    background: rgba(255,255,255,0.1);
+    color: white;
+  }
+
+  .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFD700;
+    margin: 40px 0 24px;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+    .social-links {
+      flex-wrap: wrap;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="language-switcher">
+    <button class="lang-btn active" onclick="setLanguage('en')">English</button>
+    <button class="lang-btn" onclick="setLanguage('hi')">हिंग्लिश</button>
+  </div>
+
+<div class="header">
+  <div style="font-size:40px;margin-bottom:10px">🔤</div>
+  <h1 data-translate="app_name">Word Blitz India</h1>
+  <p data-translate="contact_title">Contact & Support</p>
+  <div class="flag">
+    <span style="background:#FF6B00"></span>
+    <span style="background:white"></span>
+    <span style="background:#00A651"></span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="highlight-box">
+    <h2 data-translate="need_help">Need Help? We're Here for You! 🇮🇳</h2>
+    <p data-translate="support_text">
+      Whether you have questions, feedback, or need technical assistance, 
+      our support team is ready to help you have the best gaming experience.
+    </p>
+    <div class="social-links">
+      <a href="mailto:ravichaudhary.studio@gmail.com" class="social-link" title="Email">📧</a>
+      <a href="#" class="social-link" title="WhatsApp">💬</a>
+      <a href="#" class="social-link" title="Twitter">🐦</a>
+      <a href="#" class="social-link" title="Instagram">📷</a>
+    </div>
+  </div>
+
+  <h2 class="section-title" data-translate="contact_methods">Contact Methods</h2>
+  
+  <div class="contact-grid">
+    <div class="contact-card">
+      <span class="contact-icon">📧</span>
+      <h3 data-translate="email_support">Email Support</h3>
+      <p data-translate="email_text">
+        Send us an email for any questions, feedback, or technical issues. 
+        We'll get back to you within 24 hours.
+      </p>
+      <a href="mailto:ravichaudhary.studio@gmail.com">
+        ravichaudhary.studio@gmail.com →
+      </a>
+    </div>
+
+    <div class="contact-card">
+      <span class="contact-icon">💬</span>
+      <h3 data-translate="in_app_support">In-App Support</h3>
+      <p data-translate="in_app_text">
+        Get help directly from the game. Go to Settings → Support 
+        to chat with our team or browse help articles.
+      </p>
+      <a href="#" onclick="showInAppInstructions()">
+        Learn how →
+      </a>
+    </div>
+
+    <div class="contact-card">
+      <span class="contact-icon">🐛</span>
+      <h3 data-translate="bug_report">Bug Reports</h3>
+      <p data-translate="bug_text">
+        Found a bug? Help us improve! Report issues with screenshots 
+        and details about what happened.
+      </p>
+      <a href="mailto:ravichaudhary.studio@gmail.com?subject=Bug Report">
+        Report Bug →
+      </a>
+    </div>
+
+    <div class="contact-card">
+      <span class="contact-icon">💡</span>
+      <h3 data-translate="feature_request">Feature Requests</h3>
+      <p data-translate="feature_text">
+        Have ideas for new features or improvements? We'd love to hear 
+        your suggestions for making Word Blitz India better.
+      </p>
+      <a href="mailto:ravichaudhary.studio@gmail.com?subject=Feature Request">
+        Suggest Feature →
+      </a>
+    </div>
+  </div>
+
+  <div class="response-time">
+    ⏰ <strong data-translate="response_time">Response Time:</strong> 
+    <span data-translate="response_text">
+      We typically respond within 2-3 business days. For urgent technical issues, 
+      please mention "URGENT" in your email subject.
+    </span>
+  </div>
+
+  <div class="faq-section">
+    <h2 class="section-title" data-translate="faq_title">Frequently Asked Questions</h2>
+    
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span data-translate="faq1_q">How do I reset my password?</span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer" data-translate="faq1_a">
+        We use OTP-based login, so there's no password to reset! Simply open the app, 
+        enter your phone number, and we'll send you a new OTP to log in.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span data-translate="faq2_q">Can I change my username?</span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer" data-translate="faq2_a">
+        Yes! Go to Profile → Edit Profile to change your username. 
+        Note: You can only change it once every 30 days.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span data-translate="faq3_q">How do I delete my account?</span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer" data-translate="faq3_a">
+        You can delete your account by going to Profile → Settings → Delete Account, 
+        or email us at ravichaudhary.studio@gmail.com with "Delete Account" in the subject.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span data-translate="faq4_q">Why am I not receiving OTP?</span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer" data-translate="faq4_a">
+        Check if you entered the correct phone number, ensure good network connectivity, 
+        and verify that SMS messages aren't blocked. If issues persist, contact support.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span data-translate="faq5_q">How do I report inappropriate content?</span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer" data-translate="faq5_a">
+        If you encounter inappropriate content in the game, please report it immediately 
+        through the in-app report feature or email us with screenshots at ravichaudhary.studio@gmail.com.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span data-translate="footer">© 2026 Word Blitz India. All rights reserved. 🇮🇳<br>
+  Made with ❤️ in India</span> ·
+  <a href="index.html" data-translate="home_link" style="color:#FF9A3C;text-decoration:none;margin:0 8px">Home</a> ·
+  <a href="privacy_policy.html" data-translate="privacy_link" style="color:#FF9A3C;text-decoration:none;margin:0 8px">Privacy</a> ·
+  <a href="delete_account.html" data-translate="delete_link" style="color:#FF9A3C;text-decoration:none;margin:0 8px">Delete Account</a>
+</footer>
+
+<script>
+  const translations = {
+    en: {
+      app_name: "Word Blitz India",
+      contact_title: "Contact & Support",
+      need_help: "Need Help? We're Here for You! 🇮🇳",
+      support_text: "Whether you have questions, feedback, or need technical assistance, our support team is ready to help you have the best gaming experience.",
+      contact_methods: "Contact Methods",
+      email_support: "Email Support",
+      email_text: "Send us an email for any questions, feedback, or technical issues. We'll get back to you within 24 hours.",
+      in_app_support: "In-App Support",
+      in_app_text: "Get help directly from the game. Go to Settings → Support to chat with our team or browse help articles.",
+      bug_report: "Bug Reports",
+      bug_text: "Found a bug? Help us improve! Report issues with screenshots and details about what happened.",
+      feature_request: "Feature Requests",
+      feature_text: "Have ideas for new features or improvements? We'd love to hear your suggestions for making Word Blitz India better.",
+      response_time: "Response Time:",
+      response_text: "We typically respond within 2-3 business days. For urgent technical issues, please mention \"URGENT\" in your email subject.",
+      faq_title: "Frequently Asked Questions",
+      faq1_q: "How do I reset my password?",
+      faq1_a: "We use OTP-based login, so there's no password to reset! Simply open the app, enter your phone number, and we'll send you a new OTP to log in.",
+      faq2_q: "Can I change my username?",
+      faq2_a: "Yes! Go to Profile → Edit Profile to change your username. Note: You can only change it once every 30 days.",
+      faq3_q: "How do I delete my account?",
+      faq3_a: "You can delete your account by going to Profile → Settings → Delete Account, or email us at ravichaudhary.studio@gmail.com with \"Delete Account\" in the subject.",
+      faq4_q: "Why am I not receiving OTP?",
+      faq4_a: "Check if you entered the correct phone number, ensure good network connectivity, and verify that SMS messages aren't blocked. If issues persist, contact support.",
+      faq5_q: "How do I report inappropriate content?",
+      faq5_a: "If you encounter inappropriate content in the game, please report it immediately through the in-app report feature or email us with screenshots at ravichaudhary.studio@gmail.com.",
+      footer: "© 2026 Word Blitz India. All rights reserved. 🇮🇳<br>Made with ❤️ in India",
+      home_link: "Home",
+      privacy_link: "Privacy",
+      delete_link: "Delete Account"
+    },
+    hi: {
+      app_name: "वर्ड ब्लिट्ज़ इंडिया",
+      contact_title: "संपर्क और सहायता",
+      need_help: "मदद चाहिए? हम आपके लिए यहां हैं! 🇮🇳",
+      support_text: "चाहे आपके कोई सवाल हों, फीडबैक देना हो, या तकनीकी सहायता चाहिए, हमारी सपोर्ट टीम आपको सर्वोत्तम गेमिंग अनुभव देने में मदद करने के लिए तैयार है।",
+      contact_methods: "संपर्क के तरीके",
+      email_support: "ईमेल सपोर्ट",
+      email_text: "किसी भी सवाल, फीडबैक, या तकनीकी समस्या के लिए हमें ईमेल भेजें। हम 24 घंटे के भीतर आपको जवाब देंगे।",
+      in_app_support: "ऐप में सपोर्ट",
+      in_app_text: "गेम से सीधे मदद प्राप्त करें। हमारी टीम से चैट करने या सहायता लेख ब्राउज़ करने के लिए सेटिंग्स → सपोर्ट पर जाएं।",
+      bug_report: "बग रिपोर्ट",
+      bug_text: "कोई बग मिला? हमें बेहतर बनाने में मदद करें! स्क्रीनशॉट और उस बारे में विवरण के साथ मुद्दों की रिपोर्ट करें कि क्या हुआ।",
+      feature_request: "फीचर अनुरोध",
+      feature_text: "नए फीचर या सुधारों के लिए विचार हैं? हम वर्ड ब्लिट्ज़ इंडिया को बेहतर बनाने के लिए आपके सुझाव सुनना पसंद करेंगे।",
+      response_time: "प्रतिक्रिया समय:",
+      response_text: "हम आमतौर पर 2-3 व्यावसायिक दिनों के भीतर जवाब देते हैं। तत्काल तकनीकी समस्याओं के लिए, कृपया अपने ईमेल विषय में \"URGENT\" का उल्लेख करें।",
+      faq_title: "अक्सर पूछे जाने वाले प्रश्न",
+      faq1_q: "मैं अपना पासवर्ड कैसे रीसेट करूं?",
+      faq1_a: "हम OTP-आधारित लॉगिन का उपयोग करते हैं, इसलिए रीसेट करने के लिए कोई पासवर्ड नहीं है! बस ऐप खोलें, अपना फोन नंबर दर्ज करें, और हम लॉग इन करने के लिए आपको एक नया OTP भेजेंगे।",
+      faq2_q: "क्या मैं अपना यूजरनेम बदल सकता हूं?",
+      faq2_a: "हाँ! अपना यूजरनेम बदलने के लिए प्रोफाइल → प्रोफाइल संपादित करें पर जाएं। नोट: आप इसे केवल 30 दिनों में एक बार ही बदल सकते हैं।",
+      faq3_q: "मैं अपना अकाउंट कैसे डिलीट करूं?",
+      faq3_a: "आप प्रोफाइल → सेटिंग्स → अकाउंट डिलीट करें पर जाकर अपना अकाउंट डिलीट कर सकते हैं, या विषय में \"Delete Account\" के साथ हमें ravichaudhary.studio@gmail.com पर ईमेल करें।",
+      faq4_q: "मुझे OTP क्यों नहीं मिल रहा है?",
+      faq4_a: "जांचें कि क्या आपने सही फोन नंबर दर्ज किया है, अच्छी नेटवर्क कनेक्टिविटी सुनिश्चित करें, और सत्यापित करें कि SMS संदेश ब्लॉक नहीं हैं। यदि समस्याएं बनी रहती हैं, तो सपोर्ट से संपर्क करें।",
+      faq5_q: "मैं अनुचित सामग्री की रिपोर्ट कैसे करूं?",
+      faq5_a: "यदि आप गेम में किसी अनुचित सामग्री का सामना करते हैं, तो कृपया तुरंत इन-ऐप रिपोर्ट फीचर के माध्यम से रिपोर्ट करें या स्क्रीनशॉट के साथ हमें ravichaudhary.studio@gmail.com पर ईमेल करें।",
+      footer: "© 2026 वर्ड ब्लिट्ज़ इंडिया. सर्वाधिकार सुरक्षित। 🇮🇳<br>भारत में ❤️ के साथ बनाया गया",
+      home_link: "होम",
+      privacy_link: "प्राइवेसी",
+      delete_link: "अकाउंट डिलीट"
+    }
+  };
+
+  let currentLanguage = localStorage.getItem('preferredLanguage') || 'en';
+
+  function setLanguage(lang) {
+    currentLanguage = lang;
+    localStorage.setItem('preferredLanguage', lang);
+    
+    // Update button states
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    // Update text content
+    document.querySelectorAll('[data-translate]').forEach(element => {
+      const key = element.getAttribute('data-translate');
+      if (translations[lang][key]) {
+        element.textContent = translations[lang][key];
+      }
+    });
+    
+    // Update HTML lang attribute
+    document.documentElement.lang = lang;
+  }
+
+  function toggleFAQ(element) {
+    const faqItem = element.parentElement;
+    const allItems = document.querySelectorAll('.faq-item');
+    
+    // Close all other items
+    allItems.forEach(item => {
+      if (item !== faqItem) {
+        item.classList.remove('active');
+      }
+    });
+    
+    // Toggle current item
+    faqItem.classList.toggle('active');
+  }
+
+  function showInAppInstructions() {
+    alert('To access in-app support:\n1. Open Word Blitz India app\n2. Tap on your Profile\n3. Go to Settings\n4. Tap on "Support"\n5. Choose your issue or chat with us');
+  }
+
+  // Initialize language on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const langButtons = document.querySelectorAll('.lang-btn');
+    langButtons.forEach(btn => {
+      if (btn.textContent.includes(currentLanguage === 'en' ? 'English' : 'हिंग्लिश')) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+    
+    // Apply saved language
+    document.querySelectorAll('[data-translate]').forEach(element => {
+      const key = element.getAttribute('data-translate');
+      if (translations[currentLanguage][key]) {
+        element.textContent = translations[currentLanguage][key];
+      }
+    });
+    
+    document.documentElement.lang = currentLanguage;
+  });
+</script>
+</body>
+</html>

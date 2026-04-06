@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Account — Word Blitz India</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0A0F2C;
+    color: #e0e0e0;
+    line-height: 1.8;
+    font-size: 16px;
+  }
+  .header {
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    padding: 36px 20px;
+    text-align: center;
+  }
+  .header h1 { font-size: 26px; font-weight: 900; color: white; margin-bottom: 6px; }
+  .header p  { color: rgba(255,255,255,0.85); font-size: 14px; }
+
+  .container { max-width: 720px; margin: 0 auto; padding: 36px 20px 60px; }
+
+  .app-info {
+    display: flex; align-items: center; gap: 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 16px; margin-bottom: 28px;
+  }
+  .app-icon {
+    width: 56px; height: 56px; border-radius: 14px;
+    background: linear-gradient(135deg, #FF6B00, #FFD700);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; flex-shrink: 0;
+  }
+  .app-name { font-size: 18px; font-weight: 800; color: white; }
+  .app-dev  { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+  h2 {
+    font-size: 19px; font-weight: 700; color: #FF9A3C;
+    margin: 28px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,165,0,0.2);
+  }
+  p { margin-bottom: 14px; color: #c8c8c8; }
+
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    margin: 0 0 20px;
+  }
+  .steps li {
+    counter-increment: step;
+    display: flex; gap: 14px; align-items: flex-start;
+    margin-bottom: 14px;
+  }
+  .step-num {
+    background: #FF6B00; color: white;
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px; flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-text { color: #c8c8c8; }
+  .step-text strong { color: #FF9A3C; }
+
+  .data-table {
+    width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;
+  }
+  .data-table th {
+    background: rgba(255,59,59,0.15); color: #ff7070;
+    padding: 10px 14px; text-align: left;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .data-table td {
+    padding: 10px 14px;
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #c0c0c0;
+  }
+  .data-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+  .badge {
+    display: inline-block; padding: 2px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 700;
+  }
+  .deleted  { background: rgba(231,76,60,0.2);  color: #e74c3c; }
+  .retained { background: rgba(255,165,0,0.15); color: #FFA500; }
+  .auto     { background: rgba(0,166,81,0.15);  color: #00A651; }
+
+  .warn-box {
+    background: rgba(231,76,60,0.08);
+    border: 1px solid rgba(231,76,60,0.3);
+    border-radius: 10px; padding: 14px 18px; margin: 20px 0;
+    font-size: 14px; color: #e07070;
+  }
+
+  .email-btn {
+    display: block; width: 100%;
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    color: white; text-decoration: none;
+    padding: 16px; border-radius: 12px;
+    text-align: center; font-weight: 800; font-size: 16px;
+    margin: 24px 0 12px;
+  }
+  .email-btn:hover { opacity: 0.9; }
+
+  .alt-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; padding: 16px; margin-top: 10px;
+  }
+  .alt-box h3 { color: #aaa; font-size: 15px; margin-bottom: 8px; }
+
+  .timeline {
+    display: flex; gap: 0; margin: 16px 0;
+  }
+  .tl-item {
+    flex: 1; text-align: center; padding: 12px 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+  .tl-item:first-child { border-radius: 10px 0 0 10px; }
+  .tl-item:last-child  { border-radius: 0 10px 10px 0; }
+  .tl-num  { font-size: 22px; font-weight: 900; color: #FF6B00; }
+  .tl-unit { font-size: 11px; color: rgba(255,255,255,0.4); }
+  .tl-desc { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+
+  footer {
+    text-align: center; padding: 24px;
+    font-size: 12px; color: rgba(255,255,255,0.2);
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+  footer a { color: rgba(255,165,0,0.6); text-decoration: none; }
+  .language-switcher {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    padding: 4px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+  }
+  .lang-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+  .lang-btn.active {
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    color: white;
+  }
+  .lang-btn:hover:not(.active) {
+    background: rgba(255,255,255,0.1);
+    color: white;
+  }
+</style>
+</head>
+<body>
+  <div class="language-switcher">
+    <button class="lang-btn active" onclick="setLanguage('en')">English</button>
+    <button class="lang-btn" onclick="setLanguage('hi')">हिंग्लिश</button>
+  </div>
+
+<div class="header">
+  <div style="font-size:36px;margin-bottom:10px">🗑️</div>
+  <h1 data-translate="page_title">Delete Account</h1>
+  <p data-translate="page_subtitle">Word Blitz India — Account &amp; Data Deletion</p>
+</div>
+
+<div class="container">
+
+  <!-- App info -->
+  <div class="app-info">
+    <div class="app-icon">🔤</div>
+    <div>
+      <div class="app-name" data-translate="app_name">Word Blitz India</div>
+      <div class="app-dev" data-translate="developer">Developer: Word Blitz India Team</div>
+    </div>
+  </div>
+
+  <!-- Method 1: In-App -->
+  <h2 data-translate="method1_title">📱 Method 1 — Delete from App (Recommended)</h2>
+  <p data-translate="method1_desc">This is the easiest method — directly from within the app:</p>
+
+  <ol class="steps">
+    <li>
+      <div class="step-num">1</div>
+      <div class="step-text" data-translate="step1">Open Word Blitz India app</div>
+    </li>
+    <li>
+      <div class="step-num">2</div>
+      <div class="step-text" data-translate="step2">Tap <strong>👤 Profile</strong> in the bottom navigation bar</div>
+    </li>
+    <li>
+      <div class="step-num">3</div>
+      <div class="step-text" data-translate="step3">Tap <strong>⚙️ Settings</strong></div>
+    </li>
+    <li>
+      <div class="step-num">4</div>
+      <div class="step-text" data-translate="step4">Scroll down — tap the <strong>"Delete Account"</strong> button</div>
+    </li>
+    <li>
+      <div class="step-num">5</div>
+      <div class="step-text" data-translate="step5">In the confirmation dialog, select <strong>"Yes, Delete"</strong></div>
+    </li>
+    <li>
+      <div class="step-num">6</div>
+      <div class="step-text" data-translate="step6">✅ Your account and all data will be <strong>permanently deleted within 7 days</strong></div>
+    </li>
+  </ol>
+
+  <!-- Method 2: Email -->
+  <h2 data-translate="method2_title">📧 Method 2 — Request via Email</h2>
+  <p data-translate="method2_desc">Don't have app access? Send us an email — we'll respond within 2 business days:</p>
+
+  <a href="mailto:ravichaudhary.studio@gmail.com?subject=Delete%20My%20Account%20-%20Word%20Blitz%20India&body=Hello%2C%0A%0AMujhe%20apna%20Word%20Blitz%20India%20account%20delete%20karna%20hai.%0A%0ARegistered%20Phone%2FEmail%3A%20%5BYahan%20apna%20phone%20ya%20email%20likho%5D%0A%0AKripya%20mera%20account%20aur%20sab%20data%20delete%20kar%20do.%0A%0AThank%20you"
+     class="email-btn" data-translate="email_button">
+    📧 Send Delete Request Email
+  </a>
+
+  <div class="alt-box">
+    <h3 data-translate="or_email_directly">Or email directly:</h3>
+    <p style="color:#FFD700;font-weight:700;margin:0">ravichaudhary.studio@gmail.com</p>
+    <p style="font-size:13px;color:#888;margin-top:4px" data-translate="email_instructions">
+      Subject: "Delete My Account - Word Blitz India"<br>
+      Include your registered phone number or email in the body
+    </p>
+  </div>
+
+  <!-- Data deleted -->
+  <h2 data-translate="data_table_title">🗂️ What Gets Deleted — What Gets Retained</h2>
+
+  <table class="data-table">
+    <tr>
+      <th data-translate="data_type_column">Data Type</th>
+      <th data-translate="action_column">Action</th>
+      <th data-translate="timeline_column">Timeline</th>
+    </tr>
+    <tr>
+      <td data-translate="phone_email_data">Phone number / Email</td>
+      <td><span class="badge deleted" data-translate="permanently_deleted">Permanently Deleted</span></td>
+      <td data-translate="seven_days">7 days</td>
+    </tr>
+    <tr>
+      <td data-translate="game_scores">Game scores &amp; progress</td>
+      <td><span class="badge deleted" data-translate="permanently_deleted">Permanently Deleted</span></td>
+      <td data-translate="seven_days">7 days</td>
+    </tr>
+    <tr>
+      <td data-translate="profile_data">Profile name &amp; photo</td>
+      <td><span class="badge deleted" data-translate="permanently_deleted">Permanently Deleted</span></td>
+      <td data-translate="seven_days">7 days</td>
+    </tr>
+    <tr>
+      <td data-translate="inventory_data">Coins, gems &amp; inventory</td>
+      <td><span class="badge deleted" data-translate="permanently_deleted">Permanently Deleted</span></td>
+      <td data-translate="seven_days">7 days</td>
+    </tr>
+    <tr>
+      <td data-translate="badges_data">Badges &amp; achievements</td>
+      <td><span class="badge deleted" data-translate="permanently_deleted">Permanently Deleted</span></td>
+      <td data-translate="seven_days">7 days</td>
+    </tr>
+    <tr>
+      <td data-translate="tournament_data">Tournament history</td>
+      <td><span class="badge deleted" data-translate="permanently_deleted">Permanently Deleted</span></td>
+      <td data-translate="seven_days">7 days</td>
+    </tr>
+    <tr>
+      <td data-translate="notification_token">Push notification token</td>
+      <td><span class="badge deleted" data-translate="permanently_deleted">Permanently Deleted</span></td>
+      <td data-translate="immediately">Immediately</td>
+    </tr>
+    <tr>
+      <td data-translate="analytics_data">Anonymized gameplay analytics</td>
+      <td><span class="badge retained" data-translate="retained_no_info">Retained (no personal info)</span></td>
+      <td data-translate="kept_for_improvement">Kept for app improvement</td>
+    </tr>
+    <tr>
+      <td data-translate="financial_data">Financial transaction records</td>
+      <td><span class="badge retained" data-translate="retained_legal">Retained per legal requirement</span></td>
+      <td data-translate="required_by_law">As required by law</td>
+    </tr>
+  </table>
+
+  <!-- Timeline -->
+  <h2 data-translate="timeline_title">⏱️ Deletion Timeline</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-num">0</div>
+      <div class="tl-unit" data-translate="days">Days</div>
+      <div class="tl-desc" data-translate="request_received">Request received</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num">1-2</div>
+      <div class="tl-unit" data-translate="days">Days</div>
+      <div class="tl-desc" data-translate="email_confirmation">Email confirmation sent</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num">7</div>
+      <div class="tl-unit" data-translate="days">Days</div>
+      <div class="tl-desc" data-translate="data_deleted">All data permanently deleted</div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    ⚠️ <strong data-translate="warning">Warning:</strong> <span data-translate="warning_text">After deleting your account, this action
+    <strong>cannot be undone</strong>. All your coins, progress, badges
+    and game history will be permanently lost.</span>
+  </div>
+
+  <!-- Data only deletion -->
+  <h2 data-translate="data_only_title">📄 Delete Data Only (Keep Account)</h2>
+  <p data-translate="data_only_desc">
+    If you don't want to delete your account but want to delete specific data,
+    email us — we'll help:
+  </p>
+  <ul style="color:#c0c0c0; margin-left:20px; margin-bottom:14px">
+    <li data-translate="delete_history">Delete game history</li>
+    <li data-translate="change_profile">Change or delete profile name</li>
+    <li data-translate="remove_photo">Remove profile photo</li>
+    <li data-translate="reset_notifications">Reset notification preferences</li>
+  </ul>
+  <p data-translate="data_only_email">
+    Email: <a href="mailto:ravichaudhary.studio@gmail.com" style="color:#FFD700">
+    ravichaudhary.studio@gmail.com</a> — Subject: "Data Deletion Request"
+  </p>
+
+</div>
+
+<footer>
+  <span data-translate="footer">© 2026 Word Blitz India · Made with ❤️ in India 🇮🇳 ·
+  <a href="privacy_policy.html">Privacy Policy</a> ·
+  <a href="contact_support.html">Contact & Support</a> ·
+  <a href="index.html">Home</a></span>
+</footer>
+
+  <script>
+    const translations = {
+      en: {
+        page_title: "Delete Account",
+        page_subtitle: "Word Blitz India — Account & Data Deletion",
+        app_name: "Word Blitz India",
+        developer: "Developer: Word Blitz India Team",
+        method1_title: "📱 Method 1 — Delete from App (Recommended)",
+        method1_desc: "This is the easiest method — directly from within the app:",
+        step1: "Open Word Blitz India app",
+        step2: "Tap 👤 Profile in the bottom navigation bar",
+        step3: "Tap ⚙️ Settings",
+        step4: "Scroll down — tap the \"Delete Account\" button",
+        step5: "In the confirmation dialog, select \"Yes, Delete\"",
+        step6: "✅ Your account and all data will be permanently deleted within 7 days",
+        method2_title: "📧 Method 2 — Request via Email",
+        method2_desc: "Don't have app access? Send us an email — we'll respond within 2 business days:",
+        email_button: "📧 Send Delete Request Email",
+        or_email_directly: "Or email directly:",
+        email_instructions: "Subject: \"Delete My Account - Word Blitz India\"<br>Include your registered phone number or email in the body",
+        data_table_title: "🗂️ What Gets Deleted — What Gets Retained",
+        data_type_column: "Data Type",
+        action_column: "Action",
+        timeline_column: "Timeline",
+        phone_email_data: "Phone number / Email",
+        permanently_deleted: "Permanently Deleted",
+        seven_days: "7 days",
+        game_scores: "Game scores & progress",
+        profile_data: "Profile name & photo",
+        inventory_data: "Coins, gems & inventory",
+        badges_data: "Badges & achievements",
+        tournament_data: "Tournament history",
+        notification_token: "Push notification token",
+        immediately: "Immediately",
+        analytics_data: "Anonymized gameplay analytics",
+        retained_no_info: "Retained (no personal info)",
+        kept_for_improvement: "Kept for app improvement",
+        financial_data: "Financial transaction records",
+        retained_legal: "Retained per legal requirement",
+        required_by_law: "As required by law",
+        timeline_title: "⏱️ Deletion Timeline",
+        days: "Days",
+        request_received: "Request received",
+        email_confirmation: "Email confirmation sent",
+        data_deleted: "All data permanently deleted",
+        warning: "Warning:",
+        warning_text: "After deleting your account, this action cannot be undone. All your coins, progress, badges and game history will be permanently lost.",
+        data_only_title: "📄 Delete Data Only (Keep Account)",
+        data_only_desc: "If you don't want to delete your account but want to delete specific data, email us — we'll help:",
+        delete_history: "Delete game history",
+        change_profile: "Change or delete profile name",
+        remove_photo: "Remove profile photo",
+        reset_notifications: "Reset notification preferences",
+        data_only_email: "Email: ravichaudhary.studio@gmail.com — Subject: \"Data Deletion Request\"",
+        footer: "© 2026 Word Blitz India · Made with ❤️ in India 🇮🇳"
+      },
+      hi: {
+        page_title: "अकाउंट डिलीट करें",
+        page_subtitle: "वर्ड ब्लिट्ज़ इंडिया — अकाउंट और डेटा डिलीशन",
+        app_name: "वर्ड ब्लिट्ज़ इंडिया",
+        developer: "डेवलपर: वर्ड ब्लिट्ज़ इंडिया टीम",
+        method1_title: "📱 तरीका 1 — ऐप से डिलीट करें (अनुशंसित)",
+        method1_desc: "यह सबसे आसान तरीका है — सीधे ऐप के अंदर से:",
+        step1: "वर्ड ब्लिट्ज़ इंडिया ऐप खोलें",
+        step2: "नीचे नेविगेशन बार में 👤 प्रोफाइल टैप करें",
+        step3: "⚙️ सेटिंग्स टैप करें",
+        step4: "नीचे स्क्रॉल करें — \"अकाउंट डिलीट करें\" बटन टैप करें",
+        step5: "कंफर्मेशन डायलॉग में, \"हां, डिलीट करें\" चुनें",
+        step6: "✅ आपका अकाउंट और सारा डेटा 7 दिनों में स्थायी रूप से डिलीट हो जाएगा",
+        method2_title: "📧 तरीका 2 — ईमेल से अनुरोध करें",
+        method2_desc: "ऐप एक्सेस नहीं है? हमें ईमेल भेजें — हम 2 बिजनेस दिनों में जवाब देंगे:",
+        email_button: "📧 डिलीट अनुरोध ईमेल भेजें",
+        or_email_directly: "या सीधे ईमेल करें:",
+        email_instructions: "विषय: \"Delete My Account - Word Blitz India\"<br>बॉडी में अपना रजिस्टर्ड फोन नंबर या ईमेल शामिल करें",
+        data_table_title: "🗂️ क्या डिलीट होगा — क्या रखा जाएगा",
+        data_type_column: "डेटा टाइप",
+        action_column: "एक्शन",
+        timeline_column: "टाइमलाइन",
+        phone_email_data: "फोन नंबर / ईमेल",
+        permanently_deleted: "स्थायी रूप से डिलीट हो गया",
+        seven_days: "7 दिन",
+        game_scores: "गेम स्कोर और प्रोग्रेस",
+        profile_data: "प्रोफाइल नाम और फोटो",
+        inventory_data: "सिक्के, जेम्स और इन्वेंट्री",
+        badges_data: "बैज और उपलब्धियां",
+        tournament_data: "टूर्नामेंट इतिहास",
+        notification_token: "पुश नोटिफिकेशन टोकन",
+        immediately: "तुरंत",
+        analytics_data: "अज्ञात गेमप्ले एनालिटिक्स",
+        retained_no_info: "रखा गया (कोई व्यक्तिगत जानकारी नहीं)",
+        kept_for_improvement: "ऐप इम्प्रूवमेंट के लिए रखा गया",
+        financial_data: "वित्तीय लेनदेन रिकॉर्ड",
+        retained_legal: "कानूनी आवश्यकता के अनुसार रखा गया",
+        required_by_law: "कानून के अनुसार आवश्यक",
+        timeline_title: "⏱️ डिलीशन टाइमलाइन",
+        days: "दिन",
+        request_received: "अनुरोध प्राप्त हुआ",
+        email_confirmation: "ईमेल कंफर्मेशन भेजा गया",
+        data_deleted: "सारा डेटा स्थायी रूप से डिलीट हो गया",
+        warning: "चेतावनी:",
+        warning_text: "अकाउंट डिलीट करने के बाद, यह एक्शन अनडन नहीं किया जा सकता। आपके सभी सिक्के, प्रोग्रेस, बैज और गेम इतिहास स्थायी रूप से खो जाएंगे।",
+        data_only_title: "📄 केवल डेटा डिलीट करें (अकाउंट रखें)",
+        data_only_desc: "यदि आप अपना अकाउंट डिलीट नहीं करना चाहते लेकिन विशिष्ट डेटा डिलीट करना चाहते हैं, तो हमें ईमेल करें — हम मदद करेंगे:",
+        delete_history: "गेम इतिहास डिलीट करें",
+        change_profile: "प्रोफाइल नाम बदलें या डिलीट करें",
+        remove_photo: "प्रोफाइल फोटो हटाएं",
+        reset_notifications: "नोटिफिकेशन प्रेफरेंस रीसेट करें",
+        data_only_email: "ईमेल: ravichaudhary.studio@gmail.com — विषय: \"Data Deletion Request\"",
+        footer: "© 2026 वर्ड ब्लिट्ज़ इंडिया · भारत में ❤️ के साथ बनाया गया 🇮🇳"
+      }
+    };
+
+    let currentLanguage = localStorage.getItem('preferredLanguage') || 'en';
+
+    function setLanguage(lang) {
+      currentLanguage = lang;
+      localStorage.setItem('preferredLanguage', lang);
+      
+      // Update button states
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      // Update text content
+      document.querySelectorAll('[data-translate]').forEach(element => {
+        const key = element.getAttribute('data-translate');
+        if (translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+      
+      // Update HTML lang attribute
+      document.documentElement.lang = lang;
+    }
+
+    // Initialize language on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const langButtons = document.querySelectorAll('.lang-btn');
+      langButtons.forEach(btn => {
+        if (btn.textContent.includes(currentLanguage === 'en' ? 'English' : 'हिंग्लिश')) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      
+      // Apply saved language
+      document.querySelectorAll('[data-translate]').forEach(element => {
+        const key = element.getAttribute('data-translate');
+        if (translations[currentLanguage][key]) {
+          element.textContent = translations[currentLanguage][key];
+        }
+      });
+      
+      document.documentElement.lang = currentLanguage;
+    });
+  </script>
+</body>
+</html>

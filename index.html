@@ -67,6 +67,36 @@
     overflow: hidden;
   }
   .flag span { width: 30px; height: 6px; display: block; }
+  .language-switcher {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    padding: 4px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+  }
+  .lang-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+  .lang-btn.active {
+    background: linear-gradient(135deg, #FF6B00, #FFD700);
+    color: white;
+  }
+  .lang-btn:hover:not(.active) {
+    background: rgba(255,255,255,0.1);
+    color: white;
+  }
   footer {
     margin-top: 40px;
     font-size: 12px;
@@ -75,20 +105,28 @@
 </style>
 </head>
 <body>
+  <div class="language-switcher">
+    <button class="lang-btn active" onclick="setLanguage('en')">English</button>
+    <button class="lang-btn" onclick="setLanguage('hi')">हिंग्लिश</button>
+  </div>
+
   <div class="logo">🔤</div>
-  <h1>Word Blitz India</h1>
-  <p class="tagline">India ka #1 Hindi-English Word Puzzle Game 🇮🇳</p>
+  <h1 data-translate="title">Word Blitz India</h1>
+  <p class="tagline" data-translate="tagline">India ka #1 Hindi-English Word Puzzle Game 🇮🇳</p>
 
   <div class="links">
     <a href="https://play.google.com/store/apps/details?id=com.wordblitz.india"
-       class="btn btn-primary">
+       class="btn btn-primary" data-translate="download">
       📱 Download on Play Store
     </a>
-    <a href="privacy_policy.html" class="btn btn-secondary">
+    <a href="privacy_policy.html" class="btn btn-secondary" data-translate="privacy">
       🔒 Privacy Policy
     </a>
-    <a href="mailto:support@wordblitzindia.com" class="btn btn-secondary">
-      📧 Contact Support
+    <a href="delete_account.html" class="btn btn-secondary" data-translate="delete_account">
+      🗑️ Delete Account
+    </a>
+    <a href="contact_support.html" class="btn btn-secondary" data-translate="contact_support">
+      📞 Contact & Support
     </a>
   </div>
 
@@ -98,6 +136,75 @@
     <span style="background:#00A651"></span>
   </div>
 
-  <footer>© 2026 Word Blitz India · Made with ❤️ in India</footer>
+  <footer data-translate="footer">© 2026 Word Blitz India · Made with ❤️ in India</footer>
+
+  <script>
+    const translations = {
+      en: {
+        title: "Word Blitz India",
+        tagline: "India ka #1 Hindi-English Word Puzzle Game 🇮🇳",
+        download: "📱 Download on Play Store",
+        privacy: "🔒 Privacy Policy",
+        delete_account: "🗑️ Delete Account",
+        contact_support: "📞 Contact & Support",
+        footer: "© 2026 Word Blitz India · Made with ❤️ in India"
+      },
+      hi: {
+        title: "वर्ड ब्लिट्ज़ इंडिया",
+        tagline: "इंडिया का #1 हिंदी-इंग्लिश वर्ड पज़ल गेम 🇮🇳",
+        download: "📱 प्ले स्टोर पर डाउनलोड करें",
+        privacy: "🔒 प्राइवेसी पॉलिसी",
+        delete_account: "🗑️ अकाउंट डिलीट करें",
+        contact_support: "📞 संपर्क और सहायता",
+        footer: "© 2026 वर्ड ब्लिट्ज़ इंडिया · भारत में ❤️ के साथ बनाया गया"
+      }
+    };
+
+    let currentLanguage = localStorage.getItem('preferredLanguage') || 'en';
+
+    function setLanguage(lang) {
+      currentLanguage = lang;
+      localStorage.setItem('preferredLanguage', lang);
+      
+      // Update button states
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      // Update text content
+      document.querySelectorAll('[data-translate]').forEach(element => {
+        const key = element.getAttribute('data-translate');
+        if (translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+      
+      // Update HTML lang attribute
+      document.documentElement.lang = lang;
+    }
+
+    // Initialize language on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const langButtons = document.querySelectorAll('.lang-btn');
+      langButtons.forEach(btn => {
+        if (btn.textContent.includes(currentLanguage === 'en' ? 'English' : 'हिंग्लिश')) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      
+      // Apply saved language
+      document.querySelectorAll('[data-translate]').forEach(element => {
+        const key = element.getAttribute('data-translate');
+        if (translations[currentLanguage][key]) {
+          element.textContent = translations[currentLanguage][key];
+        }
+      });
+      
+      document.documentElement.lang = currentLanguage;
+    });
+  </script>
 </body>
 </html>
