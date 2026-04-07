@@ -2,135 +2,593 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Word Blitz India</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap');
+  
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  /* Prevent scroll and zoom issues on mobile */
+  html {
+    overflow-x: hidden;
+    touch-action: manipulation;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+  
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #0A0F2C;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #0A0F2C 0%, #1A1F3A 50%, #0F1529 100%);
     color: #e0e0e0;
+    line-height: 1.8;
+    font-size: 16px;
+    position: relative;
+    overflow-x: hidden;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 40px 20px;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
-  .logo { font-size: 72px; margin-bottom: 16px; }
+  
+  :root {
+    --neon-orange: #FF6B00;
+    --neon-yellow: #FFD700;
+    --neon-pink: #FF1493;
+    --neon-cyan: #00FFFF;
+    --neon-purple: #9D00FF;
+    --dark-bg: #0A0F2C;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+  }
+  
+  
+  /* Multiple animated background layers */
+  body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(255, 107, 0, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(157, 0, 255, 0.1) 0%, transparent 50%);
+    animation: floatingParticles 20s ease-in-out infinite;
+    z-index: -1;
+  }
+  
+  body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 60% 30%, rgba(255, 20, 147, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 30% 70%, rgba(0, 255, 255, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 85% 60%, rgba(255, 107, 0, 0.06) 0%, transparent 35%);
+    animation: floatingParticlesReverse 25s ease-in-out infinite;
+    z-index: -2;
+  }
+  
+  /* Additional floating orbs */
+  .floating-orbs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    z-index: -3;
+  }
+  
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.4;
+  }
+  
+  .orb1 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255, 107, 0, 0.3), transparent);
+    top: 10%;
+    left: 10%;
+    animation: orbFloat1 15s ease-in-out infinite;
+  }
+  
+  .orb2 {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.3), transparent);
+    top: 60%;
+    right: 15%;
+    animation: orbFloat2 18s ease-in-out infinite;
+  }
+  
+  .orb3 {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(157, 0, 255, 0.3), transparent);
+    bottom: 20%;
+    left: 20%;
+    animation: orbFloat3 20s ease-in-out infinite;
+  }
+  
+  .orb4 {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(255, 20, 147, 0.3), transparent);
+    top: 30%;
+    right: 30%;
+    animation: orbFloat4 22s ease-in-out infinite;
+  }
+  
+  @keyframes floatingParticles {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(30px, -30px) rotate(120deg); }
+    66% { transform: translate(-20px, 20px) rotate(240deg); }
+  }
+  
+  @keyframes floatingParticlesReverse {
+    0%, 100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+    25% { transform: translate(-25px, 25px) rotate(270deg) scale(1.1); }
+    50% { transform: translate(20px, -20px) rotate(180deg) scale(0.9); }
+    75% { transform: translate(-15px, -15px) rotate(90deg) scale(1.05); }
+  }
+  
+  @keyframes orbFloat1 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+    25% { transform: translate(40px, -30px) scale(1.2); opacity: 0.6; }
+    50% { transform: translate(-30px, 40px) scale(0.8); opacity: 0.3; }
+    75% { transform: translate(20px, 20px) scale(1.1); opacity: 0.5; }
+  }
+  
+  @keyframes orbFloat2 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+    33% { transform: translate(-35px, 25px) scale(0.9); opacity: 0.3; }
+    66% { transform: translate(25px, -35px) scale(1.3); opacity: 0.6; }
+  }
+  
+  @keyframes orbFloat3 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+    20% { transform: translate(30px, 30px) scale(1.15); opacity: 0.5; }
+    40% { transform: translate(-25px, -20px) scale(0.85); opacity: 0.3; }
+    60% { transform: translate(35px, -25px) scale(1.25); opacity: 0.6; }
+    80% { transform: translate(-20px, 35px) scale(0.95); opacity: 0.4; }
+  }
+  
+  @keyframes orbFloat4 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+    30% { transform: translate(-40px, -30px) scale(1.2); opacity: 0.5; }
+    60% { transform: translate(30px, 40px) scale(0.8); opacity: 0.3; }
+    90% { transform: translate(-25px, 35px) scale(1.1); opacity: 0.6; }
+  }
+  
+  .logo { 
+    font-size: 72px; 
+    margin-bottom: 16px;
+    text-align: center;
+    text-shadow: 0 0 30px rgba(255, 107, 0, 0.8),
+                 0 0 60px rgba(255, 107, 0, 0.4),
+                 0 0 90px rgba(255, 107, 0, 0.2);
+    animation: neonGlow 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes neonGlow {
+    from { 
+      text-shadow: 0 0 30px rgba(255, 107, 0, 0.8),
+                   0 0 60px rgba(255, 107, 0, 0.4),
+                   0 0 90px rgba(255, 107, 0, 0.2);
+    }
+    to { 
+      text-shadow: 0 0 40px rgba(255, 215, 0, 0.9),
+                   0 0 80px rgba(255, 215, 0, 0.5),
+                   0 0 120px rgba(255, 215, 0, 0.3);
+    }
+  }
+  
   h1 {
+    font-family: 'Orbitron', monospace;
     font-size: 36px;
     font-weight: 900;
-    background: linear-gradient(135deg, #FF6B00, #FFD700);
+    background: linear-gradient(135deg, var(--neon-orange), var(--neon-yellow), var(--neon-pink));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    animation: gradientShift 3s ease-in-out infinite;
+    text-align: center;
   }
+  
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
   .tagline {
     font-size: 16px;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.7);
     margin-bottom: 40px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-align: center;
   }
+  
   .links {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
     width: 100%;
     max-width: 320px;
+    position: relative;
+    text-align: center;
   }
+  
   .btn {
     display: block;
-    padding: 14px 24px;
-    border-radius: 12px;
+    padding: 16px 28px;
+    border-radius: 16px;
     text-decoration: none;
     font-weight: 700;
     font-size: 15px;
-    transition: opacity 0.2s;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    border: 2px solid transparent;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
   }
-  .btn:hover { opacity: 0.85; }
+  
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn:hover::before {
+    left: 100%;
+  }
+  
   .btn-primary {
-    background: linear-gradient(135deg, #FF6B00, #FFD700);
+    background: linear-gradient(135deg, var(--neon-orange), var(--neon-yellow));
+    color: white;
+    box-shadow: 0 0 20px rgba(255, 107, 0, 0.5),
+                0 0 40px rgba(255, 107, 0, 0.3),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--neon-orange);
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 107, 0, 0.7),
+                0 0 60px rgba(255, 107, 0, 0.4),
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+    border-color: var(--neon-yellow);
+  }
+  
+  .btn-secondary {
+    background: var(--glass-bg);
+    color: rgba(255,255,255,0.8);
+    border: 2px solid var(--glass-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+  }
+  
+  .btn-secondary:hover {
+    transform: translateY(-2px) scale(1.02);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 107, 0, 0.5);
+    box-shadow: 0 0 20px rgba(255, 107, 0, 0.3),
+                0 12px 40px rgba(0, 0, 0, 0.4),
+                inset 0 0 30px rgba(255, 255, 255, 0.1);
     color: white;
   }
-  .btn-secondary {
-    background: rgba(255,255,255,0.06);
-    color: rgba(255,255,255,0.7);
-    border: 1px solid rgba(255,255,255,0.12);
-  }
+  
   .flag {
     display: flex;
     justify-content: center;
     margin-top: 40px;
-    border-radius: 3px;
+    border-radius: 6px;
     overflow: hidden;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    position: relative;
   }
-  .flag span { width: 30px; height: 6px; display: block; }
+  
+  .flag span { 
+    width: 30px; 
+    height: 8px; 
+    display: block;
+    position: relative;
+    transition: all 0.3s;
+  }
+  
+  .flag:hover span {
+    transform: scaleY(1.2);
+    filter: brightness(1.3);
+  }
+  
   .language-switcher {
     position: absolute;
     top: 20px;
     right: 20px;
     display: flex;
-    gap: 8px;
-    background: rgba(255,255,255,0.1);
-    padding: 4px;
-    border-radius: 8px;
-    backdrop-filter: blur(10px);
+    gap: 4px;
+    background: var(--glass-bg);
+    padding: 6px;
+    border-radius: 12px;
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   }
+  
   .lang-btn {
-    padding: 8px 16px;
+    padding: 10px 18px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     background: transparent;
     color: rgba(255,255,255,0.7);
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
-    transition: all 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
   }
+  
+  .lang-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.3s;
+  }
+  
+  .lang-btn:hover::before {
+    left: 100%;
+  }
+  
   .lang-btn.active {
-    background: linear-gradient(135deg, #FF6B00, #FFD700);
+    background: linear-gradient(135deg, var(--neon-orange), var(--neon-yellow));
     color: white;
+    box-shadow: 0 0 15px rgba(255, 107, 0, 0.5),
+                inset 0 0 10px rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
   }
+  
   .lang-btn:hover:not(.active) {
     background: rgba(255,255,255,0.1);
     color: white;
+    transform: scale(1.02);
   }
+  
   footer {
     margin-top: 40px;
     font-size: 12px;
-    color: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.3);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+  
+  /* Additional gaming effects */
+  .glow-border {
+    position: relative;
+  }
+  
+  .glow-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, var(--neon-orange), var(--neon-yellow), var(--neon-pink), var(--neon-cyan), var(--neon-orange));
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    animation: borderRotate 3s linear infinite;
+  }
+  
+  .glow-border:hover::before {
+    opacity: 1;
+  }
+  
+  @keyframes borderRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Enhanced responsive design */
+  @media (max-width: 768px) {
+    body {
+      padding: 15px;
+    }
+    
+    .logo { 
+      font-size: 64px; 
+      margin-bottom: 12px;
+    }
+    
+    h1 {
+      font-size: 32px;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+    
+    .tagline {
+      font-size: 14px;
+      margin-bottom: 30px;
+      letter-spacing: 0.5px;
+    }
+    
+    .links {
+      max-width: 280px;
+      gap: 14px;
+    }
+    
+    .btn {
+      padding: 15px 24px;
+      font-size: 14px;
+      border-radius: 14px;
+    }
+    
+    .flag span {
+      width: 26px;
+      height: 7px;
+    }
+    
+    .language-switcher {
+      top: 15px;
+      right: 15px;
+      padding: 4px;
+      border-radius: 10px;
+    }
+    
+    .lang-btn {
+      padding: 8px 14px;
+      font-size: 12px;
+      border-radius: 6px;
+    }
+    
+    /* Reduce floating orbs size on mobile */
+    .orb1 { width: 120px; height: 120px; }
+    .orb2 { width: 90px; height: 90px; }
+    .orb3 { width: 100px; height: 100px; }
+    .orb4 { width: 80px; height: 80px; }
+  }
+  
+  @media (max-width: 480px) {
+    body {
+      padding: 12px;
+    }
+    
+    .logo { 
+      font-size: 56px; 
+      margin-bottom: 10px;
+    }
+    
+    h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+    }
+    
+    .tagline {
+      font-size: 13px;
+      margin-bottom: 25px;
+      letter-spacing: 0.3px;
+      line-height: 1.4;
+    }
+    
+    .links {
+      max-width: 260px;
+      gap: 12px;
+      width: 100%;
+    }
+    
+    .btn {
+      padding: 14px 20px;
+      font-size: 13px;
+      border-radius: 12px;
+    }
+    
+    .flag span {
+      width: 24px;
+      height: 6px;
+    }
+    
+    .language-switcher {
+      top: 10px;
+      right: 10px;
+      padding: 3px;
+      border-radius: 8px;
+      gap: 2px;
+    }
+    
+    .lang-btn {
+      padding: 6px 12px;
+      font-size: 11px;
+      border-radius: 5px;
+    }
+    
+    footer {
+      font-size: 11px;
+      margin-top: 30px;
+    }
+    
+    /* Further reduce floating orbs on small mobile */
+    .orb1 { width: 100px; height: 100px; }
+    .orb2 { width: 75px; height: 75px; }
+    .orb3 { width: 85px; height: 85px; }
+    .orb4 { width: 65px; height: 65px; }
+  }
+  
+  @media (max-width: 360px) {
+    h1 { font-size: 24px; }
+    .logo { font-size: 48px; }
+    .btn { padding: 12px 16px; font-size: 12px; }
+    .tagline { font-size: 12px; }
+    .links { max-width: 240px; }
   }
 </style>
 </head>
 <body>
+  <div class="floating-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="orb orb4"></div>
+  </div>
+  
   <div class="language-switcher">
     <button class="lang-btn active" onclick="setLanguage('en')">English</button>
     <button class="lang-btn" onclick="setLanguage('hi')">हिंग्लिश</button>
   </div>
 
-  <div class="logo">🔤</div>
+  <div class="logo glow-border">🔤</div>
   <h1 data-translate="title">Word Blitz India</h1>
   <p class="tagline" data-translate="tagline">India ka #1 Hindi-English Word Puzzle Game 🇮🇳</p>
 
   <div class="links">
     <a href="https://play.google.com/store/apps/details?id=com.wordblitz.india"
-       class="btn btn-primary" data-translate="download">
+       class="btn btn-primary glow-border" data-translate="download">
       📱 Download on Play Store
     </a>
-    <a href="privacy_policy.html" class="btn btn-secondary" data-translate="privacy">
+    <a href="privacy_policy.html" class="btn btn-secondary glow-border" data-translate="privacy">
       🔒 Privacy Policy
     </a>
-    <a href="delete_account.html" class="btn btn-secondary" data-translate="delete_account">
+    <a href="delete_account.html" class="btn btn-secondary glow-border" data-translate="delete_account">
       🗑️ Delete Account
     </a>
-    <a href="contact_support.html" class="btn btn-secondary" data-translate="contact_support">
+    <a href="contact_support.html" class="btn btn-secondary glow-border" data-translate="contact_support">
       📞 Contact & Support
     </a>
   </div>
 
-  <div class="flag">
+  <div class="flag glow-border">
     <span style="background:#FF6B00"></span>
     <span style="background:white"></span>
     <span style="background:#00A651"></span>
