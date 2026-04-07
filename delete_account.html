@@ -1399,8 +1399,10 @@
       });
       event.target.classList.add('active');
       
-      // Matrix text scramble effect
+      // Collect all elements and texts for batch animation
       const matrixChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*अआइईउऊएऐओऔकखगघचछजझटठडढणतथदधनपफबभमयरलवशषसह';
+      const elementsToAnimate = [];
+      const textsToAnimate = [];
       
       document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
@@ -1411,60 +1413,92 @@
           if (finalText.includes('<svg')) {
             element.innerHTML = finalText;
           } else {
-            matrixTextEffect(element, finalText, matrixChars);
+            elementsToAnimate.push(element);
+            textsToAnimate.push(finalText);
           }
         }
       });
+      
+      // Run batch animation
+      batchMatrixAnimation(elementsToAnimate, textsToAnimate, matrixChars);
       
       // Update HTML lang attribute
       document.documentElement.lang = lang;
     }
     
-    // Matrix text scramble animation - Enhanced Stable Version
-    function matrixTextEffect(element, finalText, chars) {
-      // Prevent multiple animations on same element
-      if (element.dataset.animating === 'true') return;
-      element.dataset.animating = 'true';
+    // Matrix text scramble animation - Batched Optimized Version
+    let animationQueue = [];
+    let isAnimating = false;
+    let animationFrameId = null;
+    
+    function batchMatrixAnimation(elements, texts, chars) {
+      // Cancel any existing animation
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
       
-      const originalText = element.textContent || '';
-      const maxLength = Math.max(originalText.length, finalText.length);
-      let iteration = 0;
-      let frame = 0;
-      const totalFrames = 25;
+      // Create batch queue
+      animationQueue = elements.map((el, index) => ({
+        element: el,
+        finalText: texts[index],
+        frame: 0,
+        delay: index * 2, // Stagger by 2 frames per element
+        done: false
+      })).filter(item => !item.finalText.includes('<svg'));
       
-      // Add glow effect during animation
-      element.style.textShadow = '0 0 10px rgba(231, 76, 60, 0.5), 0 0 20px rgba(255, 107, 0, 0.3)';
-      element.style.transition = 'text-shadow 0.3s ease';
+      if (animationQueue.length === 0) return;
       
-      const animate = () => {
-        frame++;
-        const progress = frame / totalFrames;
-        iteration = Math.floor(progress * finalText.length);
+      isAnimating = true;
+      const totalFrames = 15; // Reduced from 25
+      
+      const runBatch = () => {
+        let allDone = true;
         
-        let output = '';
-        for (let i = 0; i < finalText.length; i++) {
-          if (finalText[i] === ' ') {
-            output += ' ';
-          } else if (i < iteration) {
-            output += finalText[i];
+        for (const item of animationQueue) {
+          if (item.done) continue;
+          
+          // Skip if delay not elapsed
+          if (item.frame < item.delay) {
+            item.frame++;
+            allDone = false;
+            continue;
+          }
+          
+          const progress = (item.frame - item.delay) / totalFrames;
+          const iteration = Math.floor(progress * item.finalText.length);
+          
+          let output = '';
+          for (let i = 0; i < item.finalText.length; i++) {
+            if (item.finalText[i] === ' ') {
+              output += ' ';
+            } else if (i < iteration) {
+              output += item.finalText[i];
+            } else {
+              // Pre-compute random char with simpler method
+              output += chars[(i + item.frame) % chars.length];
+            }
+          }
+          
+          item.element.textContent = output;
+          item.frame++;
+          
+          if (iteration < item.finalText.length) {
+            allDone = false;
           } else {
-            const randomChar = chars[Math.floor(Math.random() * chars.length)];
-            output += randomChar;
+            item.element.textContent = item.finalText;
+            item.done = true;
           }
         }
         
-        element.textContent = output;
-        
-        if (frame < totalFrames) {
-          requestAnimationFrame(animate);
+        if (!allDone) {
+          animationFrameId = requestAnimationFrame(runBatch);
         } else {
-          element.textContent = finalText;
-          element.style.textShadow = '';
-          element.dataset.animating = 'false';
+          isAnimating = false;
+          animationFrameId = null;
         }
       };
       
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(runBatch);
     }
 
     // Initialize language on page load
