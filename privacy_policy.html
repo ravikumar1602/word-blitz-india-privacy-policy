@@ -30,6 +30,56 @@
     overflow-x: hidden;
   }
   
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Scroll reveal animations */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .slide-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .slide-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .slide-in-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .slide-in-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .scale-in {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .scale-in.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
   /* Multiple animated background layers */
   body::before {
     content: '';
@@ -165,6 +215,10 @@
     box-shadow: 0 0 50px rgba(255, 107, 0, 0.4);
   }
   
+  .header.fade-in {
+    animation-delay: 0.2s;
+  }
+  
   .header::before {
     content: '';
     position: absolute;
@@ -182,6 +236,20 @@
     100% { left: 100%; }
   }
   
+  .logo-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .logo-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+  }
+
   .header h1 {
     font-family: 'Orbitron', monospace;
     font-size: 32px;
@@ -227,6 +295,17 @@
     margin: 0 auto;
     padding: 50px 20px 80px;
     position: relative;
+  }
+  
+  .container > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .container > *.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .last-updated {
@@ -420,8 +499,14 @@
   .section-icon {
     display: inline-block;
     margin-right: 10px;
-    font-size: 1.2em;
+    vertical-align: middle;
     filter: drop-shadow(0 0 5px rgba(255, 107, 0, 0.5));
+  }
+  
+  .section-icon svg {
+    width: 24px;
+    height: 24px;
+    color: inherit;
   }
 
   table {
@@ -584,6 +669,12 @@
       padding: 40px 15px;
     }
     
+    .logo-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 14px;
+    }
+    
     .header h1 {
       font-size: 28px;
       margin-bottom: 6px;
@@ -678,6 +769,12 @@
   @media (max-width: 480px) {
     .header {
       padding: 30px 12px;
+    }
+    
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
     }
     
     .header h1 {
@@ -821,6 +918,11 @@
   @media (max-width: 360px) {
     .header h1 { font-size: 20px; }
     .header p { font-size: 12px; }
+    .logo-img { 
+      width: 50px; 
+      height: 50px; 
+      border-radius: 10px; 
+    }
     h2 { font-size: 16px; }
     h3 { font-size: 14px; }
     p, li { font-size: 13px; }
@@ -838,13 +940,15 @@
     <div class="orb orb4"></div>
   </div>
   
-  <div class="language-switcher">
+  <div class="language-switcher fade-in">
     <button class="lang-btn active" onclick="setLanguage('en')">English</button>
     <button class="lang-btn" onclick="setLanguage('hi')">हिंग्लिश</button>
   </div>
 
-<div class="header">
-  <div class="logo glow-border" style="font-size:50px;margin-bottom:12px">🔤</div>
+<div class="header fade-in">
+  <div class="logo glow-border" style="margin-bottom:12px">
+    <img src="app_icon.png" alt="Word Blitz India" class="logo-img">
+  </div>
   <h1 data-translate="app_name">Word Blitz India</h1>
   <p data-translate="privacy_title">Privacy Policy</p>
   <div class="flag glow-border">
@@ -857,8 +961,14 @@
 <div class="container">
 
   <div class="last-updated">
-    📅 <strong data-translate="last_updated">Last Updated:</strong> April 6, 2026 &nbsp;|&nbsp;
-    🇮🇳 <strong data-translate="applicable_in">Applicable in:</strong> India and Worldwide
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+      <path d="M19,3H14V5H19V18H14V20H19A2,2 0 0,0 21,18V5A2,2 0 0,0 19,3M12,5H5A2,2 0 0,0 3,7V17A2,2 0 0,0 5,19H12A2,2 0 0,0 14,17V7A2,2 0 0,0 12,5M12,17H5V7H12V17Z"/>
+    </svg>
+    <strong data-translate="last_updated">Last Updated:</strong> April 6, 2026 &nbsp;|&nbsp;
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+      <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+    </svg>
+    <strong data-translate="applicable_in">Applicable in:</strong> India and Worldwide
   </div>
 
   <p data-translate="welcome_text">
@@ -870,7 +980,9 @@
   </p>
 
   <!-- 1. INFORMATION WE COLLECT -->
-  <h2><span class="section-icon">📋</span><span data-translate="info_we_collect">1. Information We Collect</span></h2>
+  <h2><span class="section-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+    </svg></span><span data-translate="info_we_collect">1. Information We Collect</span></h2>
 
   <h3 data-translate="info_you_provide">1.1 Information You Provide</h3>
   <ul>
@@ -895,7 +1007,9 @@
   </p>
 
   <!-- 2. HOW WE USE YOUR INFORMATION -->
-  <h2><span class="section-icon">🎯</span><span data-translate="how_we_use">2. How We Use Your Information</span></h2>
+  <h2><span class="section-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8M12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12A2,2 0 0,0 12,10Z"/>
+    </svg></span><span data-translate="how_we_use">2. How We Use Your Information</span></h2>
 
   <table>
     <tr>
@@ -933,7 +1047,9 @@
   </table>
 
   <!-- 3. THIRD PARTY SERVICES -->
-  <h2><span class="section-icon">🔗</span><span data-translate="third_party">3. Third-Party Services</span></h2>
+  <h2><span class="section-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
+    </svg></span><span data-translate="third_party">3. Third-Party Services</span></h2>
   <p data-translate="third_party_text">We use the following trusted third-party services:</p>
 
   <table>
@@ -965,14 +1081,19 @@
   </table>
 
   <div class="highlight">
-    📢 <strong>Advertising:</strong> We use Google AdMob to show ads. AdMob may
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+      <path d="M3.71,18.29C3.32,17.9 3.32,17.27 3.71,16.88L12.59,8C13.37,7.22 14.63,7.22 15.41,8L16.88,9.47C17.66,10.25 17.66,11.51 16.88,12.29L8,21.17C7.62,21.56 6.99,21.56 6.6,21.17C6.21,20.78 6.21,20.15 6.6,19.76L15.47,10.88L14.12,9.53L5.24,18.41C4.85,18.8 4.22,18.8 3.83,18.41C3.44,18.02 3.44,17.39 3.83,17L3.71,18.29M18.37,3.29C19.17,3.29 19.85,3.97 19.85,4.77C19.85,5.57 19.17,6.25 18.37,6.25C17.57,6.25 16.89,5.57 16.89,4.77C16.89,3.97 17.57,3.29 18.37,3.29Z"/>
+    </svg>
+    <strong>Advertising:</strong> We use Google AdMob to show ads. AdMob may
     collect your Advertising ID to show personalized ads. You can opt out of
     personalized ads in your device settings:
     <strong>Settings → Google → Ads → Opt out of Ads Personalization</strong>
   </div>
 
   <!-- 4. DATA STORAGE AND SECURITY -->
-  <h2><span class="section-icon">🔒</span><span data-translate="data_storage">4. Data Storage and Security</span></h2>
+  <h2><span class="section-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.1 15.1,18 14,18H10C8.9,18 8,17.1 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+    </svg></span><span data-translate="data_storage">4. Data Storage and Security</span></h2>
   <ul>
     <li data-translate="data_storage_text1">Your data is stored securely on <strong>MongoDB Atlas</strong> (cloud servers)</li>
     <li data-translate="data_storage_text2">All data transmission is encrypted using <strong>HTTPS/TLS</strong></li>
@@ -982,7 +1103,9 @@
   </ul>
 
   <!-- 5. CHILDREN'S PRIVACY -->
-  <h2><span class="section-icon">👶</span><span data-translate="children_privacy">5. Children's Privacy</span></h2>
+  <h2><span class="section-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+    </svg></span><span data-translate="children_privacy">5. Children's Privacy</span></h2>
   <p data-translate="children_text">
     Word Blitz India is suitable for all ages including children.
     We do not knowingly collect personal information from children under 13
@@ -990,12 +1113,17 @@
     personal information, please contact us immediately and we will delete it.
   </p>
   <div class="highlight">
-    🎮 <span data-translate="educational_note">Our app is a <strong>word puzzle game</strong> with educational value —
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+      <path d="M21,6H3C2.45,6 2,6.45 2,7V17A2,2 0 0,0 4,19H20A2,2 0 0,0 22,17V7C22,6.45 21.55,6 21,6M20,17H4V8H20V17M15,10V12H13V14H11V12H9V10H11V8H13V10H15Z"/>
+    </svg>
+    <span data-translate="educational_note">Our app is a <strong>word puzzle game</strong> with educational value —
     it helps players learn Hindi and English vocabulary.</span>
   </div>
 
   <!-- 6. YOUR RIGHTS -->
-  <h2><span class="section-icon">✅</span><span data-translate="your_rights">6. Your Rights</span></h2>
+  <h2><span class="section-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+    </svg></span><span data-translate="your_rights">6. Your Rights</span></h2>
   <p data-translate="rights_text">You have the right to:</p>
   <ul>
     <li><strong>Access</strong> — <span data-translate="right_access">Request a copy of your personal data</span></li>
@@ -1010,7 +1138,9 @@
   </p>
 
   <!-- 7. DATA DELETION -->
-  <h2><span class="section-icon">🗑️</span><span data-translate="account_deletion">7. Account Deletion – Word Blitz India</span></h2>
+  <h2><span class="section-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+    </svg></span><span data-translate="account_deletion">7. Account Deletion – Word Blitz India</span></h2>
   
   <div class="highlight">
     <strong data-translate="deletion_request">If you want to delete your account and associated data:</strong>
@@ -1025,14 +1155,26 @@
   
   <h3 data-translate="what_we_delete">What We Will Delete:</h3>
   <ul>
-    <li data-translate="delete_account">✅ Your account</li>
-    <li data-translate="delete_progress">✅ Game progress</li>
-    <li data-translate="delete_data">✅ Associated data</li>
+    <li data-translate="delete_account"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+      <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+    </svg>Your account</li>
+    <li data-translate="delete_progress"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+      <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+    </svg>Game progress</li>
+    <li data-translate="delete_data"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+      <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+    </svg>Associated data</li>
   </ul>
   
   <div class="highlight">
-    ⏰ <strong data-translate="deletion_time">Deletion time:</strong> within 72 hours<br>
-    📋 <strong data-translate="deletion_note">Note:</strong> Some data may be retained temporarily for legal or security purposes.
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+      <path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/>
+    </svg>
+    <strong data-translate="deletion_time">Deletion time:</strong> within 72 hours<br>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+      <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+    </svg>
+    <strong data-translate="deletion_note">Note:</strong> Some data may be retained temporarily for legal or security purposes.
   </div>
   
   <p data-translate="alt_method">
@@ -1046,7 +1188,9 @@
   </ol>
 
   <!-- 8. NOTIFICATIONS -->
-  <h2><span class="section-icon">🔔</span><span data-translate="notifications">8. Push Notifications</span></h2>
+  <h2><span class="section-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21V22H10V21M12,7A5,5 0 0,0 7,12V18H17V12A5,5 0 0,0 12,7Z"/>
+    </svg></span><span data-translate="notifications">8. Push Notifications</span></h2>
   <p data-translate="notifications_text">
     We may send push notifications for:
   </p>
@@ -1061,7 +1205,9 @@
   </p>
 
   <!-- 9. CHANGES -->
-  <h2><span class="section-icon">📝</span><span data-translate="changes">9. Changes to This Policy</span></h2>
+  <h2><span class="section-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M11,15H13V17H11V15M11,7H13V13H11V7Z"/>
+    </svg></span><span data-translate="changes">9. Changes to This Policy</span></h2>
   <p data-translate="changes_text">
     We may update this Privacy Policy from time to time. We will notify you
     of significant changes through the app or by updating the "Last Updated"
@@ -1070,7 +1216,9 @@
   </p>
 
   <!-- 10. GOVERNING LAW -->
-  <h2><span class="section-icon">⚖️</span><span data-translate="governing_law">10. Governing Law</span></h2>
+  <h2><span class="section-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7A1,1 0 0,1 13,8A1,1 0 0,1 12,9A1,1 0 0,1 11,8A1,1 0 0,1 12,7M12,10A1,1 0 0,1 13,11V15A1,1 0 0,1 12,16A1,1 0 0,1 11,15V11A1,1 0 0,1 12,10Z"/>
+    </svg></span><span data-translate="governing_law">10. Governing Law</span></h2>
   <p data-translate="governing_text">
     This Privacy Policy is governed by the laws of <strong>India</strong>.
     Any disputes shall be subject to the jurisdiction of courts in India.
@@ -1080,7 +1228,9 @@
 
   <!-- CONTACT -->
   <div class="contact-box">
-    <h3 data-translate="contact_us">📧 Contact Us</h3>
+    <h3 data-translate="contact_us"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+      <path d="M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4M20,8L12,13L4,8V6L12,11L20,6V8Z"/>
+    </svg>Contact Us</h3>
     <p style="color:#c0c0c0;margin:8px 0" data-translate="contact_text">
       Koi bhi privacy concern ya data deletion request ke liye:
     </p>
@@ -1095,11 +1245,7 @@
 </div>
 
 <footer>
-  <span data-translate="footer">© 2026 Word Blitz India. All rights reserved. 🇮🇳<br>
-  Made with ❤️ in India</span> ·
-  <a href="index.html" data-translate="home_link">Home</a> ·
-  <a href="contact_support.html" data-translate="contact_link">Contact & Support</a> ·
-  <a href="delete_account.html" data-translate="delete_link">Delete Account</a>
+  <span data-translate="footer">© 2026 Word Blitz India · Made with <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin: 0 2px;"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> in India</span>
 </footer>
 
   <script>
@@ -1173,7 +1319,7 @@
         contact_us: "Contact Us",
         contact_text: "Koi bhi privacy concern ya data deletion request ke liye:",
         we_respond: "We respond within 2-3 business days",
-        footer: "© 2026 Word Blitz India. All rights reserved. 🇮🇳<br>Made with ❤️ in India",
+        footer: '© 2026 Word Blitz India · Made with <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin: 0 2px;"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> in India',
         home_link: "Home",
         contact_link: "Contact & Support",
         delete_link: "Delete Account"
@@ -1247,7 +1393,7 @@
         contact_us: "हमसे संपर्क करें",
         contact_text: "कोई भी प्राइवेसी चिंता या डेटा डिलीशन अनुरोध के लिए:",
         we_respond: "हम 2-3 व्यावसायिक दिनों के भीतर जवाब देते हैं",
-        footer: "© 2026 वर्ड ब्लिट्ज़ इंडिया. सर्वाधिकार सुरक्षित। 🇮🇳<br>भारत में ❤️ के साथ बनाया गया",
+        footer: '© 2026 वर्ड ब्लिट्ज़ इंडिया · भारत में <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin: 0 2px;"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> के साथ बनाया गया',
         home_link: "होम",
         contact_link: "संपर्क और सहायता",
         delete_link: "अकाउंट डिलीट करें"
@@ -1270,7 +1416,13 @@
       document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
         if (translations[lang][key]) {
-          element.textContent = translations[lang][key];
+          const translation = translations[lang][key];
+          // Use innerHTML for translations with SVG/HTML, textContent for plain text
+          if (translation.includes('<svg')) {
+            element.innerHTML = translation;
+          } else {
+            element.textContent = translation;
+          }
         }
       });
       
@@ -1293,12 +1445,48 @@
       document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
         if (translations[currentLanguage][key]) {
-          element.textContent = translations[currentLanguage][key];
+          const translation = translations[currentLanguage][key];
+          // Use innerHTML for translations with SVG/HTML, textContent for plain text
+          if (translation.includes('<svg')) {
+            element.innerHTML = translation;
+          } else {
+            element.textContent = translation;
+          }
         }
       });
       
       document.documentElement.lang = currentLanguage;
+      
+      // Initialize scroll animations
+      initScrollAnimations();
     });
+    
+    // Scroll animation functionality
+    function initScrollAnimations() {
+      const observerOptions = {
+        threshold: 0.05,
+        rootMargin: '0px 0px -10px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+      
+      // Observe all animated elements
+      document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in').forEach(el => {
+        observer.observe(el);
+      });
+      
+      // Observe container children for staggered animation
+      document.querySelectorAll('.container > *').forEach((el, index) => {
+        el.style.transitionDelay = `${index * 0.05}s`;
+        observer.observe(el);
+      });
+    }
   </script>
 </body>
 </html>

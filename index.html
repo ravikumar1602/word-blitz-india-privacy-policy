@@ -9,8 +9,9 @@
   
   * { margin: 0; padding: 0; box-sizing: border-box; }
   
-  /* Prevent scroll and zoom issues on mobile */
+  /* Smooth scroll behavior */
   html {
+    scroll-behavior: smooth;
     overflow-x: hidden;
     touch-action: manipulation;
     -webkit-text-size-adjust: 100%;
@@ -33,6 +34,51 @@
     padding: 20px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Scroll reveal animations */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .slide-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .slide-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .slide-in-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .slide-in-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .scale-in {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .scale-in.visible {
+    opacity: 1;
+    transform: scale(1);
   }
   
   :root {
@@ -174,13 +220,27 @@
   }
   
   .logo { 
-    font-size: 72px; 
     margin-bottom: 16px;
     text-align: center;
-    text-shadow: 0 0 30px rgba(255, 107, 0, 0.8),
-                 0 0 60px rgba(255, 107, 0, 0.4),
-                 0 0 90px rgba(255, 107, 0, 0.2);
     animation: neonGlow 2s ease-in-out infinite alternate;
+  }
+  
+  .logo-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 24px;
+    object-fit: cover;
+    box-shadow: 0 0 30px rgba(255, 107, 0, 0.8),
+                0 0 60px rgba(255, 107, 0, 0.4),
+                0 0 90px rgba(255, 107, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .logo-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.9),
+                0 0 80px rgba(255, 215, 0, 0.5),
+                0 0 120px rgba(255, 215, 0, 0.3);
   }
   
   @keyframes neonGlow {
@@ -427,8 +487,13 @@
     }
     
     .logo { 
-      font-size: 64px; 
       margin-bottom: 12px;
+    }
+    
+    .logo-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 20px;
     }
     
     h1 {
@@ -485,8 +550,13 @@
     }
     
     .logo { 
-      font-size: 56px; 
       margin-bottom: 10px;
+    }
+    
+    .logo-img {
+      width: 85px;
+      height: 85px;
+      border-radius: 18px;
     }
     
     h1 {
@@ -548,7 +618,12 @@
   
   @media (max-width: 360px) {
     h1 { font-size: 24px; }
-    .logo { font-size: 48px; }
+    .logo { margin-bottom: 8px; }
+    .logo-img { 
+      width: 75px; 
+      height: 75px; 
+      border-radius: 16px; 
+    }
     .btn { padding: 12px 16px; font-size: 12px; }
     .tagline { font-size: 12px; }
     .links { max-width: 240px; }
@@ -563,58 +638,72 @@
     <div class="orb orb4"></div>
   </div>
   
-  <div class="language-switcher">
+  <div class="language-switcher fade-in">
     <button class="lang-btn active" onclick="setLanguage('en')">English</button>
     <button class="lang-btn" onclick="setLanguage('hi')">हिंग्लिश</button>
   </div>
 
-  <div class="logo glow-border">🔤</div>
-  <h1 data-translate="title">Word Blitz India</h1>
-  <p class="tagline" data-translate="tagline">India ka #1 Hindi-English Word Puzzle Game 🇮🇳</p>
+  <div class="logo glow-border fade-in">
+    <img src="app_icon.png" alt="Word Blitz India" class="logo-img">
+  </div>
+  <h1 class="fade-in" data-translate="title" style="animation-delay: 0.2s">Word Blitz India</h1>
+  <p class="tagline fade-in" data-translate="tagline" style="animation-delay: 0.4s">India ka #1 Hindi-English Word Puzzle Game</p>
 
-  <div class="links">
+  <div class="links slide-in-left">
     <a href="https://play.google.com/store/apps/details?id=com.wordblitz.india"
        class="btn btn-primary glow-border" data-translate="download">
-      📱 Download on Play Store
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+      </svg>
+      <span style="vertical-align: middle;">Download on Play Store</span>
     </a>
     <a href="privacy_policy.html" class="btn btn-secondary glow-border" data-translate="privacy">
-      🔒 Privacy Policy
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+        <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.1 15.1,18 14,18H10C8.9,18 8,17.1 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+      </svg>
+      <span style="vertical-align: middle;">Privacy Policy</span>
     </a>
     <a href="delete_account.html" class="btn btn-secondary glow-border" data-translate="delete_account">
-      🗑️ Delete Account
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+        <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+      </svg>
+      <span style="vertical-align: middle;">Delete Account</span>
     </a>
     <a href="contact_support.html" class="btn btn-secondary glow-border" data-translate="contact_support">
-      📞 Contact & Support
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+        <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/>
+      </svg>
+      <span style="vertical-align: middle;">Contact & Support</span>
     </a>
   </div>
 
-  <div class="flag glow-border">
+  <div class="flag glow-border scale-in">
     <span style="background:#FF6B00"></span>
     <span style="background:white"></span>
     <span style="background:#00A651"></span>
   </div>
 
-  <footer data-translate="footer">© 2026 Word Blitz India · Made with ❤️ in India</footer>
+  <footer class="fade-in" data-translate="footer">© 2026 Word Blitz India · Made with <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;margin:0 2px;vertical-align:middle"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> in India</footer>
 
   <script>
     const translations = {
       en: {
         title: "Word Blitz India",
-        tagline: "India ka #1 Hindi-English Word Puzzle Game 🇮🇳",
-        download: "📱 Download on Play Store",
-        privacy: "🔒 Privacy Policy",
-        delete_account: "🗑️ Delete Account",
-        contact_support: "📞 Contact & Support",
-        footer: "© 2026 Word Blitz India · Made with ❤️ in India"
+        tagline: "India ka #1 Hindi-English Word Puzzle Game",
+        download: "Download on Play Store",
+        privacy: "Privacy Policy",
+        delete_account: "Delete Account",
+        contact_support: "Contact & Support",
+        footer: '© 2026 Word Blitz India · Made with <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;margin:0 2px;vertical-align:middle"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> in India',
       },
       hi: {
         title: "वर्ड ब्लिट्ज़ इंडिया",
-        tagline: "इंडिया का #1 हिंदी-इंग्लिश वर्ड पज़ल गेम 🇮🇳",
-        download: "📱 प्ले स्टोर पर डाउनलोड करें",
-        privacy: "🔒 प्राइवेसी पॉलिसी",
-        delete_account: "🗑️ अकाउंट डिलीट करें",
-        contact_support: "📞 संपर्क और सहायता",
-        footer: "© 2026 वर्ड ब्लिट्ज़ इंडिया · भारत में ❤️ के साथ बनाया गया"
+        tagline: "इंडिया का #1 हिंदी-इंग्लिश वर्ड पज़ल गेम",
+        download: "प्ले स्टोर पर डाउनलोड करें",
+        privacy: "प्राइवेसी पॉलिसी",
+        delete_account: "अकाउंट डिलीट करें",
+        contact_support: "संपर्क और सहायता",
+        footer: '© 2026 वर्ड ब्लिट्ज़ इंडिया · भारत में <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;margin:0 2px;vertical-align:middle"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> के साथ बनाया गया',
       }
     };
 
@@ -634,7 +723,17 @@
       document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
         if (translations[lang][key]) {
-          element.textContent = translations[lang][key];
+          const translation = translations[lang][key];
+          // For buttons with SVG icons, only update the span text
+          const spanElement = element.querySelector('span');
+          if (spanElement) {
+            spanElement.textContent = translation;
+          } else if (translation.includes('<svg')) {
+            // Use innerHTML for translations with SVG/HTML
+            element.innerHTML = translation;
+          } else {
+            element.textContent = translation;
+          }
         }
       });
       
@@ -657,12 +756,46 @@
       document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
         if (translations[currentLanguage][key]) {
-          element.textContent = translations[currentLanguage][key];
+          const translation = translations[currentLanguage][key];
+          // For buttons with SVG icons, only update the span text
+          const spanElement = element.querySelector('span');
+          if (spanElement) {
+            spanElement.textContent = translation;
+          } else if (translation.includes('<svg')) {
+            // Use innerHTML for translations with SVG/HTML
+            element.innerHTML = translation;
+          } else {
+            element.textContent = translation;
+          }
         }
       });
       
       document.documentElement.lang = currentLanguage;
+      
+      // Initialize scroll animations
+      initScrollAnimations();
     });
+    
+    // Scroll animation functionality
+    function initScrollAnimations() {
+      const observerOptions = {
+        threshold: 0.05,
+        rootMargin: '0px 0px -10px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+      
+      // Observe all animated elements
+      document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in').forEach(el => {
+        observer.observe(el);
+      });
+    }
   </script>
 </body>
 </html>
