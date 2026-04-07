@@ -719,26 +719,79 @@
       });
       event.target.classList.add('active');
       
-      // Update text content
+      // Matrix text scramble effect
+      const matrixChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*अआइईउऊएऐओऔकखगघचछजझटठडढणतथदधनपफबभमयरलवशषसह';
+      
       document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
         if (translations[lang][key]) {
-          const translation = translations[lang][key];
-          // For buttons with SVG icons, only update the span text
+          const finalText = translations[lang][key];
+          const isHtml = finalText.includes('<svg');
+          
+          // For buttons with SVG icons, only animate the span text
           const spanElement = element.querySelector('span');
-          if (spanElement) {
-            spanElement.textContent = translation;
-          } else if (translation.includes('<svg')) {
-            // Use innerHTML for translations with SVG/HTML
-            element.innerHTML = translation;
+          if (spanElement && !isHtml) {
+            matrixTextEffect(spanElement, finalText, matrixChars);
+          } else if (!isHtml) {
+            matrixTextEffect(element, finalText, matrixChars);
           } else {
-            element.textContent = translation;
+            // For HTML content (like footer), directly update
+            element.innerHTML = finalText;
           }
         }
       });
       
       // Update HTML lang attribute
       document.documentElement.lang = lang;
+    }
+    
+    // Matrix text scramble animation - Enhanced Stable Version
+    function matrixTextEffect(element, finalText, chars) {
+      // Prevent multiple animations on same element
+      if (element.dataset.animating === 'true') return;
+      element.dataset.animating = 'true';
+      
+      const originalText = element.textContent || '';
+      const maxLength = Math.max(originalText.length, finalText.length);
+      let iteration = 0;
+      let frame = 0;
+      const totalFrames = 25; // Total animation duration
+      
+      // Add glow effect during animation
+      element.style.textShadow = '0 0 10px rgba(0, 255, 157, 0.5), 0 0 20px rgba(0, 255, 157, 0.3)';
+      element.style.transition = 'text-shadow 0.3s ease';
+      
+      const animate = () => {
+        frame++;
+        const progress = frame / totalFrames;
+        iteration = Math.floor(progress * finalText.length);
+        
+        let output = '';
+        for (let i = 0; i < finalText.length; i++) {
+          if (finalText[i] === ' ') {
+            output += ' ';
+          } else if (i < iteration) {
+            output += finalText[i];
+          } else {
+            // Random character with weighted probability
+            const randomChar = chars[Math.floor(Math.random() * chars.length)];
+            output += randomChar;
+          }
+        }
+        
+        element.textContent = output;
+        
+        if (frame < totalFrames) {
+          requestAnimationFrame(animate);
+        } else {
+          // Animation complete
+          element.textContent = finalText;
+          element.style.textShadow = '';
+          element.dataset.animating = 'false';
+        }
+      };
+      
+      requestAnimationFrame(animate);
     }
 
     // Initialize language on page load
